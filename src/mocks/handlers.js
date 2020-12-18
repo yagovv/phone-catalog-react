@@ -2,16 +2,16 @@ import { rest } from 'msw';
 import { phones } from './phonesMock';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 export const handlers = [
-  rest.get(`${SERVER_URL}/api/v1/items`, (_req, res, ctx) => {
+  rest.get(`${SERVER_URL}`, (_req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.delay(2000),
       ctx.json({
-        phones,
+        data: phones,
       })
     );
   }),
-  rest.get(`${SERVER_URL}/api/v1/items/:id`, (req, res, ctx) => {
+  rest.get(`${SERVER_URL}/:id`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.delay(2000),
@@ -20,15 +20,15 @@ export const handlers = [
       })
     );
   }),
-  rest.delete(`${SERVER_URL}/api/v1/items`, (_req, res, ctx) => {
+  rest.delete(`${SERVER_URL}`, (_req, res, ctx) => {
     return res(ctx.status(200), ctx.delay(2000));
   }),
-  rest.put(`${SERVER_URL}/api/v1/items`, (req, res, ctx) => {
+  rest.put(`${SERVER_URL}`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.delay(2000),
       ctx.json({
-        phone: phones[req.params.id],
+        phone: req.body.phone,
       })
     );
   }),
