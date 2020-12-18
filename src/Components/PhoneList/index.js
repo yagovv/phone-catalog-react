@@ -1,9 +1,16 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalState';
 import Phone from '../Phone';
 
 const Phonelist = () => {
-  const { phones, removePhone, editPhone } = useContext(GlobalContext);
+  const { phones, removePhone, editPhone, getPhones } = useContext(
+    GlobalContext
+  );
+
+  useEffect(() => {
+    getPhones();
+  }, []);
+
   return (
     <>
       <p className="text-gray-900 leading-none text-center font-semibold mt-10 text-4xl mb-5">
