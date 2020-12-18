@@ -1,10 +1,8 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
-import API from '../API';
-import { phones } from '../mocks/phonesMock';
 
 const initialState = {
-  phones,
+  phones: [],
 };
 
 export const GlobalContext = createContext(initialState);
@@ -12,34 +10,31 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  async function getPhones() {
-    const apiPhones = await API.getAll();
+  function setPhones(phones) {
     dispatch({
-      type: 'GET_PHONES',
-      payload: apiPhones,
+      type: 'SET_PHONES',
+      payload: phones,
     });
   }
 
-  async function removePhone(id) {
-    await API.delete(id);
+  function removePhone(id) {
     dispatch({
       type: 'REMOVE_PHONE',
       payload: id,
     });
   }
 
-  async function addPhone(phone) {
-    await API.create(phone);
+  function addPhone(phone) {
     dispatch({
       type: 'ADD_PHONE',
       payload: phone,
     });
   }
 
-  async function editPhone(phones) {
+  function editPhone(phone) {
     dispatch({
       type: 'EDIT_PHONE',
-      payload: phones,
+      payload: phone,
     });
   }
 
@@ -47,7 +42,7 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         phones: state.phones,
-        getPhones,
+        setPhones,
         removePhone,
         addPhone,
         editPhone,
