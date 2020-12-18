@@ -1,5 +1,10 @@
 const AppReducer = (state, action) => {
   switch (action.type) {
+    case 'GET_PHONES':
+      return {
+        ...state,
+        phones: action.payload,
+      };
     case 'REMOVE_PHONE':
       return {
         ...state,
