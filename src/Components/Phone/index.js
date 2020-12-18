@@ -15,10 +15,7 @@ function Phone({
   removePhone,
 }) {
   return (
-    <div
-      className="inline-flex items-center bg-gray-100 mb-5 shadow justify-between"
-      key={id}
-    >
+    <div className="inline-flex items-center bg-gray-100 mb-5 shadow justify-between">
       <Link to={`/phone/${id}`} className="flex items-center">
         <img alt="phone" src={img} className="w-52 rounded" />
         <div className="flex-auto text-left px-4 py-2 m-1">
@@ -34,7 +31,6 @@ function Phone({
         <div className="items-right px-4 py-1 m-1">
           <Link to={`/edit/${id}`}>
             <button
-              onClick={() => editPhone(id)}
               className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold mr-2 py-2 px-4 rounded-full mb-1 inline-flex items-center"
               aria-label="edit-phone"
             >

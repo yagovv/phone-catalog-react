@@ -18,9 +18,6 @@ const PhoneDetail = route => {
     const phoneId = currentPhoneId;
     const selectedPhone = phones.find(phone => phone.id === parseInt(phoneId));
     setSeletedPhone(selectedPhone);
-    if (!selectedPhone || !selectedPhone.id) {
-      alert('Id dont match !');
-    }
   }, []);
 
   const {

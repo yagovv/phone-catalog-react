@@ -1,14 +1,25 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../../context/GlobalState';
+import API from '../../API';
 import Phone from '../Phone';
 
 const Phonelist = () => {
-  const { phones, removePhone, editPhone, getPhones } = useContext(
+  const { phones, removePhone, editPhone, setPhones } = useContext(
     GlobalContext
   );
 
+  const deletePhoneWithAPI = async phone => {
+    await API.delete(phone);
+    removePhone(phone);
+  };
+
+  const fetchPhones = async () => {
+    const { data } = await API.getAll();
+    setPhones(data);
+  };
+
   useEffect(() => {
-    getPhones();
+    fetchPhones();
   }, []);
 
   return (
@@ -16,14 +27,15 @@ const Phonelist = () => {
       <p className="text-gray-900 leading-none text-center font-semibold mt-10 text-4xl mb-5">
         Phone Catalog
       </p>
-      {phones.length > 0 ? (
+      {phones && phones.length > 0 ? (
         <div className="grid gap-3 md:grid-cols-2 grid-cols-1 md:mx-52 md:my-12">
           {phones.map(phone => {
             const { name, ram, price, manufacturer, img, id } = phone;
             return (
               <Phone
+                key={id}
                 id={id}
-                removePhone={removePhone}
+                removePhone={deletePhoneWithAPI}
                 editPhone={editPhone}
                 name={name}
                 ram={ram}

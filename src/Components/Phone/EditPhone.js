@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import API from '../../API';
 import { GlobalContext } from '../../context/GlobalState';
 import { useHistory, Link } from 'react-router-dom';
 
@@ -18,13 +19,11 @@ const EditPhone = route => {
     const phoneId = currentPhoneId;
     const selectedPhone = phones.find(phone => phone.id === parseInt(phoneId));
     setSeletedPhone(selectedPhone);
-    if (!selectedPhone || !selectedPhone.id) {
-      alert('Id dont match !');
-    }
   }, []);
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
+    await API.update(selectedPhone);
     editPhone(selectedPhone);
     history.push('/');
   };
