@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { GlobalProvider } from './context/GlobalState';
+
+import PhoneList from './Components/PhoneList';
+import NewPhone from './Components/Phone/NewPhone';
+import EditPhone from './Components/Phone/EditPhone';
+import PhoneDetail from './Components/Phone/PhoneDetail';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalProvider>
+      <Router>
+        <Switch>
+          <Route path="/" component={PhoneList} exact />
+          <Route path="/phone/:id" component={PhoneDetail} exact />
+          <Route path="/add" component={NewPhone} exact />
+          <Route path="/edit/:id" component={EditPhone} exact />
+        </Switch>
+      </Router>
+    </GlobalProvider>
   );
 }
 
