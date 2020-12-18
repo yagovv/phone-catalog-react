@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { books } from './booksMock';
+import { phones } from './phonesMock';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 export const handlers = [
   rest.get(`${SERVER_URL}/api/v1/items`, (_req, res, ctx) => {
@@ -7,34 +7,28 @@ export const handlers = [
       ctx.status(200),
       ctx.delay(2000),
       ctx.json({
-        books,
+        phones,
       })
     );
   }),
-  rest.post(`${SERVER_URL}/api/v1/items`, (_req, res, ctx) => {
+  rest.get(`${SERVER_URL}/api/v1/items/:id`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.delay(2000),
       ctx.json({
-        books,
+        phone: phones[req.params.id],
       })
     );
   }),
   rest.delete(`${SERVER_URL}/api/v1/items`, (_req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.delay(2000),
-      ctx.json({
-        books,
-      })
-    );
+    return res(ctx.status(200), ctx.delay(2000));
   }),
-  rest.put(`${SERVER_URL}/api/v1/items`, (_req, res, ctx) => {
+  rest.put(`${SERVER_URL}/api/v1/items`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.delay(2000),
       ctx.json({
-        books,
+        phone: phones[req.params.id],
       })
     );
   }),
